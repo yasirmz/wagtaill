@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtail_cache %}
+
+{% block content %}
+
+    {# This is preview-aware #}
+    {% wagtailpagecache 500 "title-cache" %}
+        <h1>
+            {{ page.title }}
+        </h1>
+    {% endwagtailpagecache %}
+
+    {# This is preview-aware PLUS page.id+site.id aware #}
+    {% wagtailpagecache 500 "streamfields" %}
+        {% for block in page.body %}
+            {% include_block page.body %}
+        {% endfor %}
+    {% endwagtailpagecache %}
+
+    {# Use `self.author` from the Page inside of `author_dark_mode.html` as `object` #}
+    {% include "includes/author_dark_mode.html" with object=self.author %}
+
+
+{% endblock %}
