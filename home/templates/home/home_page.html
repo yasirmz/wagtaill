@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>{{ page.title }}</h1>
+
+    {% if page.cta_url %}
+        <a href="{{ page.cta_url.url }}">{{ page.cta_url.title }}</a>
+    {% endif %}
+
+    {% if page.youtube_url %}
+        <p><strong>YouTube URL:</strong> <a href="{{ page.youtube_url }}">{{ page.youtube_url }}</a></p>
+    {% endif %}
+
+    <h2>Gallery</h2>
+    {% for orderable_object in page.gallery_images.all %}
+        <img src="{{ orderable_object.image.url }}" alt="{{ orderable_object.image.title }}">
+    {% endfor %}
+
+{% endblock content %}
